@@ -14,6 +14,8 @@ typedef struct {
     uint16_t I;
     uint16_t pc;
 
+    uint16_t opcode;
+
     uint16_t stack[CHIP8_STACK_SIZE];
     uint8_t sp;
 
@@ -27,5 +29,7 @@ typedef struct {
 void chip8_init(Chip8* chip8);
 
 void chip8_load_program(Chip8* chip8, const char* filename);
+
+void chip8_cycle(Chip8* chip8);
 
 #endif
