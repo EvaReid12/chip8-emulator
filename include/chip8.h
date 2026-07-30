@@ -24,6 +24,7 @@ typedef struct {
 
     uint8_t keypad[16];
     uint8_t display[64*32];
+    uint8_t draw_flag;
 } Chip8;
 
 void chip8_init(Chip8* chip8);

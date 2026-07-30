@@ -11,4 +11,5 @@ And this one [link](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
 ### Roadmap
 - [x] Initialize the Chip8 structure
 - [x] Load ROM into memory
-- [] Implement the fetch-decode-execute cycle
+- [x] Implement the fetch-decode-execute cycle
+- [] Implement instructions
