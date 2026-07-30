@@ -1,1 +1,6 @@
 # chip8-emulator
+
+For more information about the CHIP-8 architecture, please refer to [this link](https://en.wikipedia.org/wiki/CHIP-8).
+
+I am doing this project with the help of [this tutorial](https://tobiasvl.github.io/blog/write-a-chip-8-emulator/).
+And this one [link](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
