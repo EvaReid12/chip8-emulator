@@ -312,7 +312,7 @@ op_annn(Chip8* chip8)
 void 
 op_bnnn(Chip8* chip8)
 {
-    uint8_t nnn = get_nnn(chip8 -> opcode);
+    uint16_t nnn = get_nnn(chip8 -> opcode);
 
     chip8 -> pc = nnn + chip8 -> V[0];  /* Jump to address NNN + V0 */
 }
@@ -429,6 +429,7 @@ op_fx0a(Chip8* chip8)
             return;
         }
     }
+    chip8 -> pc -= 2;  /* Repeat this instruction until a key is pressed */
 }
 
 void 

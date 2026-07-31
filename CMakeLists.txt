@@ -16,6 +16,7 @@ add_executable(chip8
     src/timer.c
     src/sdl_display.c
     src/keyboard.c
+    src/audio.c
 )
 
 add_executable(tests

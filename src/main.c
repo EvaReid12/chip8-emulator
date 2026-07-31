@@ -6,6 +6,7 @@
 #include "sdl_display.h"
 #include <stdbool.h>
 #include "keyboard.h"
+#include "audio.h"
 
 #define CPU_HZ 700
 #define TIMER_HZ 60
@@ -13,6 +14,8 @@
 int 
 main(void)
 {
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+
     SDLDisplay display;
     sdl_display_init(&display);
 
@@ -25,7 +28,17 @@ main(void)
     Chip8 chip8;
     chip8_init(&chip8);
 
-    chip8_load_program(&chip8, "../roms/Tetris.ch8");
+    Audio audio;
+
+    if (!audio_init(&audio)){
+        printf("Audio init failed\n");
+        return 1;
+    }
+
+    printf("Audio OK\n");
+
+    chip8_load_program(&chip8, "../roms/chip8-test-rom-with-audio.ch8");
+    
 
     while (running) {
         SDL_Event event;
@@ -33,21 +46,22 @@ main(void)
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 running = false;
+                audio_destroy(&audio);
             }
 
             keyboard_update(&event, chip8.keypad);
         }
 
         uint64_t now = time_ms();
-
-        if (now - last_cycle_time >= 1000 / CPU_HZ) {
+        
+        while (now - last_cycle_time >= 1000 / CPU_HZ) {
             chip8_cycle(&chip8);
-            last_cycle_time = now;
+            last_cycle_time += 1000 / CPU_HZ; 
         }
 
         if (now - last_timer_update >= 1000 / TIMER_HZ) {
             chip8_update_timers(&chip8);
-            last_timer_update = now;
+            last_timer_update += 1000 / TIMER_HZ; 
         }
 
         if (chip8.draw_flag) {
@@ -55,5 +69,16 @@ main(void)
             chip8.draw_flag = 0;
         }
 
+        bool should_beep = chip8.sound_timer > 0;
+        if (should_beep != audio.playing) {
+            audio_set_beep(&audio, should_beep);
+        }
+
+        if (chip8.draw_flag) {
+            sdl_display_render(&display, chip8.display);
+            chip8.draw_flag = 0;
+        }
+        
+        SDL_Delay(1);
     }
 }
