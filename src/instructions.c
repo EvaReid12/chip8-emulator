@@ -5,8 +5,8 @@
 #include <stdlib.h>
 
 static Instruction instructions[] = {
-    {0xF000, 0x0000, op_00E0},  /* Clear the display */
-    {0xF000, 0x00EE, op_00EE},  /* Return from subroutine */
+    {0xFFFF, 0x0000, op_00E0},  /* Clear the display */
+    {0xFFFF, 0x00EE, op_00EE},  /* Return from subroutine */
     {0xF000, 0x1000, op_1nnn},  /* Jump to address NNN */
     {0xF000, 0x2000, op_2nnn},  /* Call subroutine at NNN */
     {0xF000, 0x3000, op_3xkk},  /* Skip next instruction if Vx == kk */
@@ -16,7 +16,7 @@ static Instruction instructions[] = {
     {0xF000, 0x7000, op_7xkk},  /* Set Vx = Vx + kk */
     {0xF000, 0x8000, op_8},
     {0xF000, 0x9000, op_9xy0},  /* Skip next instruction if Vx != Vy */
-    {0xF000, 0xA000, op_a000},  /* Set I = NNN */
+    {0xF000, 0xA000, op_annn},  /* Set I = NNN */
     {0xF000, 0xB000, op_bnnn},  /* Jump to address NNN + V0 */
     {0xF000, 0xC000, op_cxkk},  /* Set Vx = random number AND kk */
     {0xF000, 0xD000, op_dxyn},  /* Display n-byte sprite at (Vx, Vy), set VF = collision */
@@ -277,11 +277,9 @@ op_9xy0(Chip8* chip8)
 }
 
 void 
-op_a000(Chip8* chip8)
+op_annn(Chip8* chip8)
 {
-    uint8_t nnn = get_nnn(chip8 -> opcode);
-
-    chip8 -> I = nnn;
+    chip8 -> I = get_nnn(chip8 -> opcode);
 }
 
 void 
@@ -334,7 +332,7 @@ op_dxyn(Chip8* chip8)
 void 
 op_e(Chip8* chip8)
 {
-    uint8_t id = get_n(chip8 -> opcode);
+    uint8_t id = get_kk(chip8 -> opcode);
 
     for (size_t i = 0; i < sizeof(instructionsE) / sizeof(InstructionE); i++) {
         InstructionE instruction = instructionsE[i];
@@ -371,7 +369,7 @@ op_exa1(Chip8* chip8)
 void 
 op_f(Chip8* chip8)
 {
-    uint8_t id = get_n(chip8 -> opcode);
+    uint8_t id = get_kk(chip8 -> opcode);
 
     for (size_t i = 0; i < sizeof(instructionsF) / sizeof(InstructionF); i++) {
         InstructionF instruction = instructionsF[i];

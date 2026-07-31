@@ -13,4 +13,5 @@ And this one [link](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
 - [x] Load ROM into memory
 - [x] Implement the fetch-decode-execute cycle
 - [x] Implement instructions
-- [] Test instructions
+- [x] Test instructions
+- [] Screen implementation
