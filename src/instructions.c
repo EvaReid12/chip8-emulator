@@ -6,8 +6,7 @@
 #include "display.h"
 
 static Instruction instructions[] = {
-    {0xFFFF, 0x0000, op_00E0},  /* Clear the display */
-    {0xFFFF, 0x00EE, op_00EE},  /* Return from subroutine */
+    {0xF000, 0x0000, op_0},
     {0xF000, 0x1000, op_1nnn},  /* Jump to address NNN */
     {0xF000, 0x2000, op_2nnn},  /* Call subroutine at NNN */
     {0xF000, 0x3000, op_3xkk},  /* Skip next instruction if Vx == kk */
@@ -23,6 +22,12 @@ static Instruction instructions[] = {
     {0xF000, 0xD000, op_dxyn},  /* Display n-byte sprite at (Vx, Vy), set VF = collision */
     {0xF000, 0xE000, op_e},
     {0xF000, 0xF000, op_f},
+};
+
+static Instruction0 instructions0[] = {
+    {0x0000, op_0nnn},  /* Call RCA 1802 program at address NNN (ignored) */
+    {0x00E0, op_00E0},
+    {0x00EE, op_00EE},
 };
 
 static Instruction8 instructions8[] = {
@@ -84,6 +89,28 @@ get_kk(uint16_t opcode)
     return opcode & 0x00FF;
 }
 
+
+void 
+op_0(Chip8* chip8)
+{
+    for (size_t i = 0; i < sizeof(instructions0) / sizeof(Instruction0); i++)
+    {
+        Instruction0 instruction = instructions0[i];
+
+        if (chip8->opcode == instruction.pattern)
+        {
+            instruction.function(chip8);
+            return;
+        }
+    }
+}
+
+void
+op_0nnn(Chip8* chip8) 
+{
+    /* This opcode is ignored in modern interpreters */
+    fprintf(stderr, "Warning: Opcode 0nnn is ignored in modern interpreters.\n");
+}
 
 void 
 op_00E0(Chip8* chip8) 
@@ -328,6 +355,8 @@ op_dxyn(Chip8* chip8)
             }
         }
     }
+
+    chip8 -> draw_flag = 1;  /* Indicate that the display needs to be updated */
 }
 
 void 

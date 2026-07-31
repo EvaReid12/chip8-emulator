@@ -14,4 +14,5 @@ And this one [link](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
 - [x] Implement the fetch-decode-execute cycle
 - [x] Implement instructions
 - [x] Test instructions
-- [] Screen implementation
+- [x] CLI Screen implementation (and loading IBM_Logo rom)
+- [] Frequency implementation

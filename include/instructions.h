@@ -14,6 +14,12 @@ typedef struct {
     uint16_t pattern;
 
     void (*function)(Chip8*);
+} Instruction0;
+
+typedef struct {
+    uint16_t pattern;
+
+    void (*function)(Chip8*);
 } Instruction8; 
 
 typedef struct {
@@ -27,6 +33,10 @@ typedef struct {
 } InstructionF;
 
 void execute_opcode(Chip8* chip8);
+
+void op_0(Chip8* chip8);
+
+void op_0nnn(Chip8* chip8);
 
 void op_00E0(Chip8* chip8);
 void op_00EE(Chip8* chip8);
