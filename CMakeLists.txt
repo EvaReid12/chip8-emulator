@@ -4,7 +4,6 @@ project(chip8
     VERSION 1.0
     LANGUAGES C
 )
-
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
@@ -16,6 +15,7 @@ add_executable(chip8
     src/instructions.c
     src/display.c
     src/timer.c
+    src/sdl_display.c
 )
 
 add_executable(tests
@@ -25,3 +25,8 @@ add_executable(tests
     src/chip8.c
     src/instructions.c
 )
+
+
+find_package(SDL2 REQUIRED)
+
+target_link_libraries(chip8 SDL2::SDL2)
