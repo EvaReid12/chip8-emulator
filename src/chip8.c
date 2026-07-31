@@ -4,14 +4,16 @@
 #include <stdlib.h>
 #include "instructions.h"
 
-void chip8_init(Chip8* chip8)
+void 
+chip8_init(Chip8* chip8)
 {
     memset(chip8, 0, sizeof(Chip8));
 
     chip8 -> pc = 0x200; /* The first 512 bytes (0x000 to 0x1FF) are reserved for the interpreter, program usually starts at 0x200 */
 }
 
-void chip8_load_program(Chip8* chip8, const char* filename)
+void 
+chip8_load_program(Chip8* chip8, const char* filename)
 {
     FILE* file = fopen(filename, "rb");
 
@@ -38,7 +40,8 @@ void chip8_load_program(Chip8* chip8, const char* filename)
     printf("Loaded program '%s' into memory (size: %ld octets).\n", filename, size);
 }
 
-void chip8_cycle(Chip8* chip8)
+void 
+chip8_cycle(Chip8* chip8)
 {
     chip8 -> opcode = chip8 -> memory[chip8 -> pc] << 8 | chip8 -> memory[chip8 -> pc + 1];
 

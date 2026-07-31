@@ -15,3 +15,11 @@ add_executable(chip8
     src/chip8.c
     src/instructions.c
 )
+
+add_executable(tests
+    tests/test_main.c
+    tests/framework/test.c
+    tests/test_cpu.c
+    src/chip8.c
+    src/instructions.c
+)

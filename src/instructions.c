@@ -53,51 +53,60 @@ static InstructionF instructionsF[] = {
     {0x65, op_fx65},  /* Read registers V0 through Vx from memory starting at location I */
 };
 
-static uint16_t get_nnn(uint16_t opcode) 
+static uint16_t 
+get_nnn(uint16_t opcode) 
 {
     return opcode & 0x0FFF;
 }
 
-static uint8_t get_n(uint16_t opcode) 
+static uint8_t 
+get_n(uint16_t opcode) 
 {
     return opcode & 0x000F;
 }
 
-static uint8_t get_x(uint16_t opcode) 
+static uint8_t 
+get_x(uint16_t opcode) 
 {
     return (opcode & 0x0F00) >> 8;
 }
 
-static uint8_t get_y(uint16_t opcode) 
+static uint8_t 
+get_y(uint16_t opcode) 
 {
     return (opcode & 0x00F0) >> 4;
 }
 
-static uint8_t get_kk(uint16_t opcode) 
+static uint8_t 
+get_kk(uint16_t opcode) 
 {
     return opcode & 0x00FF;
 }
 
 
-void op_00E0(Chip8* chip8) 
+void 
+op_00E0(Chip8* chip8) 
 {
     memset(chip8 -> display, 0, sizeof(chip8 -> display));
     chip8 -> draw_flag = 1;
 }
 
-void op_00EE(Chip8* chip8) 
+void 
+op_00EE(Chip8* chip8) 
 {
     chip8 -> sp--;
     chip8 -> pc = chip8 -> stack[chip8 -> sp];
 }
 
-void op_1nnn(Chip8* chip8) 
+void 
+op_1nnn(Chip8* chip8) 
 {
     uint16_t nnn = get_nnn(chip8 -> opcode);
     chip8 -> pc = nnn;
 }
 
-void op_2nnn(Chip8* chip8) 
+void 
+op_2nnn(Chip8* chip8) 
 {
     uint16_t nnn = get_nnn(chip8 -> opcode);
     chip8 -> stack[chip8 -> sp] = chip8 -> pc;
@@ -105,7 +114,8 @@ void op_2nnn(Chip8* chip8)
     chip8 -> pc = nnn;
 }
 
-void op_3xkk(Chip8* chip8) 
+void 
+op_3xkk(Chip8* chip8) 
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t kk = get_kk(chip8 -> opcode);
@@ -115,7 +125,8 @@ void op_3xkk(Chip8* chip8)
     }
 }
 
-void op_4xkk(Chip8* chip8)
+void 
+op_4xkk(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t kk = get_kk(chip8 -> opcode);
@@ -125,7 +136,8 @@ void op_4xkk(Chip8* chip8)
     }
 }
 
-void op_5xy0(Chip8* chip8)
+void 
+op_5xy0(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t y = get_y(chip8 -> opcode);
@@ -135,7 +147,8 @@ void op_5xy0(Chip8* chip8)
     }
 }
 
-void op_6xkk(Chip8* chip8)
+void 
+op_6xkk(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t kk = get_kk(chip8 -> opcode);
@@ -143,7 +156,8 @@ void op_6xkk(Chip8* chip8)
     chip8 -> V[x] = kk;
 }
 
-void op_7xkk(Chip8* chip8)
+void 
+op_7xkk(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t kk = get_kk(chip8 -> opcode);
@@ -151,7 +165,8 @@ void op_7xkk(Chip8* chip8)
     chip8 -> V[x] = chip8 -> V[x] + kk;
 }
 
-void op_8(Chip8* chip8)
+void 
+op_8(Chip8* chip8)
 {
     uint8_t id = get_n(chip8 -> opcode);
 
@@ -165,7 +180,8 @@ void op_8(Chip8* chip8)
     }
 }
 
-void op_8xy0(Chip8* chip8)
+void 
+op_8xy0(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t y = get_y(chip8 -> opcode);
@@ -173,7 +189,8 @@ void op_8xy0(Chip8* chip8)
     chip8 -> V[x] = chip8 -> V[y];
 }
 
-void op_8xy1(Chip8* chip8)
+void 
+op_8xy1(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t y = get_y(chip8 -> opcode);
@@ -181,7 +198,8 @@ void op_8xy1(Chip8* chip8)
     chip8 -> V[x] = chip8 -> V[x] | chip8 -> V[y];
 }
 
-void op_8xy2(Chip8* chip8)
+void 
+op_8xy2(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t y = get_y(chip8 -> opcode);
@@ -189,7 +207,8 @@ void op_8xy2(Chip8* chip8)
     chip8 -> V[x] = chip8 -> V[x] & chip8 -> V[y];
 }
 
-void op_8xy3(Chip8* chip8)
+void 
+op_8xy3(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t y = get_y(chip8 -> opcode);
@@ -197,7 +216,8 @@ void op_8xy3(Chip8* chip8)
     chip8 -> V[x] = chip8 -> V[x] ^ chip8 -> V[y];
 }
 
-void op_8xy4(Chip8* chip8)
+void 
+op_8xy4(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t y = get_y(chip8 -> opcode);
@@ -207,7 +227,8 @@ void op_8xy4(Chip8* chip8)
     chip8 -> V[x] = sum & 0xFF;  /* Store the least significant byte in Vx */
 }
 
-void op_8xy5(Chip8* chip8)
+void 
+op_8xy5(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t y = get_y(chip8 -> opcode);
@@ -216,7 +237,8 @@ void op_8xy5(Chip8* chip8)
     chip8 -> V[x] = chip8 -> V[x] - chip8 -> V[y];
 }
 
-void op_8xy6(Chip8* chip8)
+void 
+op_8xy6(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
 
@@ -224,7 +246,8 @@ void op_8xy6(Chip8* chip8)
     chip8 -> V[x] >>= 1;  /* Shift Vx right by 1 */
 }
 
-void op_8xy7(Chip8* chip8)
+void 
+op_8xy7(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t y = get_y(chip8 -> opcode);
@@ -233,7 +256,8 @@ void op_8xy7(Chip8* chip8)
     chip8 -> V[x] = chip8 -> V[y] - chip8 -> V[x];
 }
 
-void op_8xye(Chip8* chip8)
+void 
+op_8xye(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
 
@@ -241,7 +265,8 @@ void op_8xye(Chip8* chip8)
     chip8 -> V[x] <<= 1;  /* Shift Vx left by 1 */
 }
 
-void op_9xy0(Chip8* chip8)
+void 
+op_9xy0(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t y = get_y(chip8 -> opcode);
@@ -251,21 +276,24 @@ void op_9xy0(Chip8* chip8)
     }
 }
 
-void op_a000(Chip8* chip8)
+void 
+op_a000(Chip8* chip8)
 {
     uint8_t nnn = get_nnn(chip8 -> opcode);
 
     chip8 -> I = nnn;
 }
 
-void op_bnnn(Chip8* chip8)
+void 
+op_bnnn(Chip8* chip8)
 {
     uint8_t nnn = get_nnn(chip8 -> opcode);
 
     chip8 -> pc = nnn + chip8 -> V[0];  /* Jump to address NNN + V0 */
 }
 
-void op_cxkk(Chip8* chip8)
+void 
+op_cxkk(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t kk = get_kk(chip8 -> opcode);
@@ -274,7 +302,8 @@ void op_cxkk(Chip8* chip8)
     chip8 -> V[x] = random_value & kk;  /* Set Vx = random number AND kk */
 }
 
-void op_dxyn(Chip8* chip8)
+void 
+op_dxyn(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t y = get_y(chip8 -> opcode);
@@ -302,7 +331,8 @@ void op_dxyn(Chip8* chip8)
     }
 }
 
-void op_e(Chip8* chip8)
+void 
+op_e(Chip8* chip8)
 {
     uint8_t id = get_n(chip8 -> opcode);
 
@@ -316,7 +346,8 @@ void op_e(Chip8* chip8)
     }
 }
 
-void op_ex9e(Chip8* chip8)
+void 
+op_ex9e(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t key = chip8 -> V[x];
@@ -326,7 +357,8 @@ void op_ex9e(Chip8* chip8)
     }
 }
 
-void op_exa1(Chip8* chip8)
+void 
+op_exa1(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t key = chip8 -> V[x];
@@ -336,7 +368,8 @@ void op_exa1(Chip8* chip8)
     }
 }
 
-void op_f(Chip8* chip8)
+void 
+op_f(Chip8* chip8)
 {
     uint8_t id = get_n(chip8 -> opcode);
 
@@ -350,14 +383,16 @@ void op_f(Chip8* chip8)
     }
 }
 
-void op_fx07(Chip8* chip8)
+void 
+op_fx07(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
 
     chip8 -> V[x] = chip8 -> delay_timer;
 }
 
-void op_fx0a(Chip8* chip8)
+void 
+op_fx0a(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
 
@@ -369,28 +404,32 @@ void op_fx0a(Chip8* chip8)
     }
 }
 
-void op_fx15(Chip8* chip8)
+void 
+op_fx15(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
 
     chip8 -> delay_timer = chip8 -> V[x];
 }
 
-void op_fx18(Chip8* chip8)
+void 
+op_fx18(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
 
     chip8 -> sound_timer = chip8 -> V[x];
 }
 
-void op_fx1e(Chip8* chip8)
+void 
+op_fx1e(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
 
     chip8 -> I = chip8 -> I + chip8 -> V[x];
 }
 
-void op_fx29(Chip8* chip8)
+void 
+op_fx29(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t digit = chip8 -> V[x];
@@ -399,7 +438,8 @@ void op_fx29(Chip8* chip8)
     chip8 -> I = digit * 5;
 }
 
-void op_fx33(Chip8* chip8)
+void 
+op_fx33(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
     uint8_t value = chip8 -> V[x];
@@ -410,7 +450,8 @@ void op_fx33(Chip8* chip8)
     chip8 -> memory[chip8 -> I + 2] = value % 10;          /* Units digit */
 }
 
-void op_fx55(Chip8* chip8)
+void 
+op_fx55(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
 
@@ -419,7 +460,8 @@ void op_fx55(Chip8* chip8)
     }
 }
 
-void op_fx65(Chip8* chip8)
+void 
+op_fx65(Chip8* chip8)
 {
     uint8_t x = get_x(chip8 -> opcode);
 
@@ -428,7 +470,8 @@ void op_fx65(Chip8* chip8)
     }
 }
 
-void execute_opcode(Chip8* chip8) 
+void 
+execute_opcode(Chip8* chip8) 
 {
     size_t instruction_count = sizeof(instructions) / sizeof(Instruction);
 

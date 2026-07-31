@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "chip8.h"
 
-int main(void)
+int 
+main(void)
 {
     Chip8 chip8;
     chip8_init(&chip8);
