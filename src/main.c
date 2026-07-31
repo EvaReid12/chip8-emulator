@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "chip8.h"
-#include "display.h"
 #include <unistd.h>  /* For usleep() */
 #include <time.h>
 #include "timer.h"
@@ -14,24 +13,19 @@ int
 main(void)
 {
     SDLDisplay display;
+    sdl_display_init(&display);
 
-    if (!sdl_display_init(&display)) {
-        return 1;
-    }
+    Chip8 chip8;
+    chip8_init(&chip8);
 
-    bool running = true;
+    chip8_load_program(&chip8, "../roms/IBM_Logo.ch8");
 
-    while (running) {
-        SDL_Event event;
+    while (1) {
+        chip8_cycle(&chip8);
 
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                running = false;
-            }
+        if (chip8.draw_flag) {
+            sdl_display_render(&display, chip8.display);
+            chip8.draw_flag = 0;
         }
     }
-
-    sdl_display_destroy(&display);
-
-    return 0;
 }

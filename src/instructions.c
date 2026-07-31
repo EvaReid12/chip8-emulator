@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "display.h"
 
 static Instruction instructions[] = {
     {0xF000, 0x0000, op_0},
@@ -115,7 +114,7 @@ op_0nnn(Chip8* chip8)
 void 
 op_00E0(Chip8* chip8) 
 {
-    clear_display(chip8 -> display);
+    memset(chip8 -> display, 0, sizeof(chip8 -> display));  /* Clear the display */
     chip8 -> draw_flag = 1;
 }
 

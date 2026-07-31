@@ -4,6 +4,48 @@
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 320
 
+#define CHIP8_WIDTH 64
+#define CHIP8_HEIGHT 32
+
+#define SCALE 10
+
+void
+sdl_display_render(SDLDisplay* display, uint8_t framebuffer[64 * 32])
+{
+    SDL_SetRenderDrawColor(
+        display -> renderer,
+        0,
+        0,
+        0,
+        255
+    );
+
+    SDL_RenderClear(display -> renderer);
+
+    SDL_SetRenderDrawColor(
+        display -> renderer,
+        255,
+        255,
+        255,
+        255
+    );
+
+    for (int y = 0; y < CHIP8_HEIGHT; y++) {
+        for (int x = 0; x < CHIP8_WIDTH; x++) {
+            if (framebuffer[y * CHIP8_WIDTH + x]) {
+                SDL_Rect pixel = {
+                    x * SCALE,
+                    y * SCALE,
+                    SCALE,
+                    SCALE
+                };
+                SDL_RenderFillRect(display -> renderer, &pixel);
+            }
+        }
+    }
+    SDL_RenderPresent(display -> renderer);
+}
+
 bool
 sdl_display_init(SDLDisplay* display)
 {

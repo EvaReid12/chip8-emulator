@@ -17,4 +17,5 @@ And this one [link](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
 - [x] CLI Screen implementation (and loading IBM_Logo rom)
 - [x] Timers implementation
 - [x] SDL
-- [] Rendering the screen with SDL
+- [x] Rendering the screen with SDL
+- [] Keyboard

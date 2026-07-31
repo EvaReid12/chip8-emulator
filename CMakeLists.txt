@@ -13,7 +13,6 @@ add_executable(chip8
     src/main.c
     src/chip8.c
     src/instructions.c
-    src/display.c
     src/timer.c
     src/sdl_display.c
 )
