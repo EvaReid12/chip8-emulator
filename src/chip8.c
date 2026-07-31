@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "instructions.h"
 
 void chip8_init(Chip8* chip8)
 {
