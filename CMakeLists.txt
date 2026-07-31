@@ -15,6 +15,7 @@ add_executable(chip8
     src/chip8.c
     src/instructions.c
     src/display.c
+    src/timer.c
 )
 
 add_executable(tests

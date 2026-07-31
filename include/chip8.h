@@ -33,4 +33,6 @@ void chip8_load_program(Chip8* chip8, const char* filename);
 
 void chip8_cycle(Chip8* chip8);
 
+void chip8_update_timers(Chip8* chip8);
+
 #endif

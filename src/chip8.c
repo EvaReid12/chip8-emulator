@@ -49,3 +49,13 @@ chip8_cycle(Chip8* chip8)
 
     execute_opcode(chip8);
 }
+
+void
+chip8_update_timers(Chip8* chip8)
+{
+    if (chip8 -> delay_timer > 0)
+        chip8 -> delay_timer --;
+
+    if (chip8 -> sound_timer > 0)
+        chip8 -> sound_timer --;
+}
