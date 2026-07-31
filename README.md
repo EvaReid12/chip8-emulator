@@ -18,4 +18,5 @@ And this one [link](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
 - [x] Timers implementation
 - [x] SDL
 - [x] Rendering the screen with SDL
-- [] Keyboard
+- [x] Keyboard
+- [] Sound
