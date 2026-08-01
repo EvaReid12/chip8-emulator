@@ -12,8 +12,13 @@
 #define TIMER_HZ 60
 
 int 
-main(void)
+main(int argc, char* argv[])
 {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <rom.ch8>\n", argv[0]);
+        return 1;
+    }
+
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
     SDLDisplay display;
@@ -37,7 +42,7 @@ main(void)
 
     printf("Audio OK\n");
 
-    chip8_load_program(&chip8, "../roms/chip8-test-rom-with-audio.ch8");
+    chip8_load_program(&chip8, argv[1]);
     
 
     while (running) {
