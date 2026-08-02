@@ -8,6 +8,7 @@ A CHIP-8 emulator written in C using SDL2.
 This project is a CHIP_8 emulator written in pure C as a learning project. It implements the complete CHIP-8 instruction set, graphical output using SDL2, keyboard input, sound generation and a custom unit testing framework.
 
 ![CI](https://github.com/EvaReid12/chip8-emulator/actions/workflows/ci.yml/badge.svg)
+[![Documentation](https://img.shields.io/badge/docs-Doxygen-blue)](https://evareid12.github.io/chip8-emulator/)
 
 ## Screenshots
 
