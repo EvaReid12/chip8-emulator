@@ -26,6 +26,9 @@ jobs:
           sudo apt update
           sudo apt install -y doxygen graphviz
 
+      - name: Generate documentation
+        run: doxygen Doxyfile
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
