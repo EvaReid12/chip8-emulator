@@ -1,6 +1,3 @@
-#### Author
-Eva B.
-
 # CHIP-8 Emulator
 
 A CHIP-8 emulator written in C using SDL2.
@@ -9,6 +6,7 @@ This project is a CHIP-8 emulator written in pure C as a learning project. It im
 
 ![CI](https://github.com/EvaReid12/chip8-emulator/actions/workflows/ci.yml/badge.svg)
 [![Documentation](https://img.shields.io/badge/docs-Doxygen-blue)](https://evareid12.github.io/chip8-emulator/)
+[![License](https://img.shields.io/badge/license-GPL--3.0-blue)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ## Screenshots
 
