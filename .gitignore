@@ -1,6 +1,9 @@
 # Build
 /build/
 
+# Docs
+/docs/
+
 #CMake
 CMakeCache.txt
 CMakeFiles/
